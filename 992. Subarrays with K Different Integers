@@ -1,0 +1,34 @@
+import java.util.*;
+
+class Solution {
+    public int subarraysWithKDistinct(int[] nums, int k) {
+        return atMostK(nums, k) - atMostK(nums, k - 1);
+    }
+
+    private int atMostK(int[] nums, int k) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        int left = 0, res = 0;
+
+        for (int right = 0; right < nums.length; right++) {
+            // Add nums[right] into window
+            freq.put(nums[right], freq.getOrDefault(nums[right], 0) + 1);
+            if (freq.get(nums[right]) == 1) {
+                k--; // new distinct number
+            }
+
+            // Shrink window if too many distinct
+            while (k < 0) {
+                freq.put(nums[left], freq.get(nums[left]) - 1);
+                if (freq.get(nums[left]) == 0) {
+                    k++;
+                }
+                left++;
+            }
+
+            // Add all valid subarrays ending at right
+            res += right - left + 1;
+        }
+
+        return res;
+    }
+}
