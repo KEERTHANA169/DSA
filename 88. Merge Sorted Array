@@ -1,0 +1,26 @@
+import java.util.*;
+
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int[] array = new int[m + n];
+        
+        // copy valid elements from nums1
+        for (int i = 0; i < m; i++) {
+            array[i] = nums1[i];
+        }
+        
+        // copy all elements from nums2
+        int idx = m;
+        for (int j = 0; j < n; j++) {
+            array[idx++] = nums2[j];
+        }
+        
+        // sort the merged array
+        Arrays.sort(array);
+        
+        // copy result back into nums1
+        for (int i = 0; i < m + n; i++) {
+            nums1[i] = array[i];
+        }
+    }
+}
