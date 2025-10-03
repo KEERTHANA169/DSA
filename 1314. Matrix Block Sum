@@ -1,0 +1,25 @@
+class Solution {
+    public int[][] matrixBlockSum(int[][] mat, int k) {
+        int length = mat.length;
+        int breadth = mat[0].length;
+        int[][] ans = new int[length][breadth];
+
+        for(int i=0;i<length;i++)
+        {
+            for(int j=0;j<breadth;j++)
+            {
+                int sum=0;
+
+                for(int l=Math.max(0,i-k) ; l<=Math.min(length-1,i+k); l++)
+                {
+                    for(int m=Math.max(0,j-k) ; m<=Math.min(breadth-1,j+k);m++)
+                    {
+                        sum+=mat[l][m];
+                    }
+                }
+                ans[i][j]=sum;
+            }
+        }
+        return ans;
+    }
+}
